@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cvinsight.ui.controllers.AnalysisController"
+            stylesheets="@styles.css">
+
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="16">
+            <Button text="← Dashboard" onAction="#handleBack" styleClass="nav-button"/>
+            <Label text="CV Analysis" styleClass="nav-title"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Button fx:id="reRunButton" text="Re-analyze"
+                    onAction="#handleReRun" styleClass="secondary-button"
+                    visible="false" managed="false"
+                    style="-fx-text-fill: white; -fx-border-color: white;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane>
+
+            <!-- Loading pane — shown while analysis runs -->
+            <VBox fx:id="loadingPane" alignment="CENTER" spacing="20"
+                  style="-fx-padding: 48;">
+                <Label text="Analyzing your CV..." styleClass="section-heading"/>
+                <ProgressBar fx:id="progressBar" prefWidth="400" progress="0"/>
+                <Label fx:id="statusLabel" text="Preparing..." styleClass="subtitle-label"/>
+            </VBox>
+
+            <!-- Results pane — shown when complete -->
+            <ScrollPane fx:id="resultsPane" fitToWidth="true"
+                        visible="false" managed="false"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                <HBox spacing="24" style="-fx-padding: 32;" alignment="TOP_LEFT">
+
+                    <!-- Left column: score + meta -->
+                    <VBox spacing="16" prefWidth="200" minWidth="180">
+                        <VBox styleClass="card" spacing="12" alignment="CENTER">
+                            <Label text="Overall Score" styleClass="section-heading"/>
+                            <VBox fx:id="scoreCardContainer" alignment="CENTER"/>
+                            <Label fx:id="cvNameLabel" styleClass="subtitle-label" wrapText="true"/>
+                            <Label fx:id="analyzedAtLabel" styleClass="subtitle-label"/>
+                        </VBox>
+                        <Button text="Compare with Examples"
+                                onAction="#handleCompare"
+                                styleClass="secondary-button"
+                                maxWidth="Infinity"/>
+                    </VBox>
+
+                    <!-- Right column: feedback -->
+                    <VBox fx:id="feedbackContainer" HBox.hgrow="ALWAYS"
+                          styleClass="card" spacing="8"/>
+
+                </HBox>
+            </ScrollPane>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

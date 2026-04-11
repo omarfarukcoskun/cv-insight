@@ -1,0 +1,197 @@
+/* ── Global ─────────────────────────────────────────────────────────────── */
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f0f2f5;
+}
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+.title-label {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a2e;
+}
+
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+}
+
+.section-heading {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+}
+
+.error-label {
+    -fx-text-fill: #dc2626;
+    -fx-font-size: 13px;
+}
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-padding: 24;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.primary-button {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #4338ca;
+}
+
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #4f46e5;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-text-fill: #4f46e5;
+    -fx-font-size: 14px;
+    -fx-padding: 9 20 9 20;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #ede9fe;
+}
+
+.link-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4f46e5;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 4 0 4 0;
+}
+
+.link-button:hover {
+    -fx-text-fill: #4338ca;
+}
+
+.danger-button {
+    -fx-background-color: #dc2626;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-padding: 9 20 9 20;
+    -fx-cursor: hand;
+}
+
+/* ── Text Fields ─────────────────────────────────────────────────────────── */
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-padding: 10 12 10 12;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #4f46e5;
+}
+
+/* ── Score Card ──────────────────────────────────────────────────────────── */
+.score-circle {
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 60;
+    -fx-min-width: 120;
+    -fx-min-height: 120;
+    -fx-max-width: 120;
+    -fx-max-height: 120;
+}
+
+.score-number {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.score-max {
+    -fx-font-size: 14px;
+    -fx-text-fill: rgba(255,255,255,0.75);
+}
+
+/* ── Feedback Items ──────────────────────────────────────────────────────── */
+.strength-item {
+    -fx-background-color: #dcfce7;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12 8 12;
+    -fx-text-fill: #166534;
+}
+
+.weakness-item {
+    -fx-background-color: #fee2e2;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12 8 12;
+    -fx-text-fill: #991b1b;
+}
+
+.suggestion-item {
+    -fx-background-color: #dbeafe;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12 8 12;
+    -fx-text-fill: #1e40af;
+}
+
+/* ── Drop Zone ───────────────────────────────────────────────────────────── */
+.drop-zone {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 2;
+    -fx-border-style: dashed;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.drop-zone-active {
+    -fx-border-color: #4f46e5;
+    -fx-background-color: #ede9fe;
+}
+
+/* ── Nav Bar ─────────────────────────────────────────────────────────────── */
+.nav-bar {
+    -fx-background-color: #1a1a2e;
+    -fx-padding: 12 24 12 24;
+}
+
+.nav-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 6 12 6 12;
+    -fx-background-radius: 6;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-text-fill: white;
+}
+
+/* ── History List ────────────────────────────────────────────────────────── */
+.history-item {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-padding: 14 18 14 18;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}

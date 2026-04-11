@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cvinsight.ui.controllers.EditorController"
+            stylesheets="@styles.css">
+
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="16">
+            <Button text="← Back" onAction="#handleBack" styleClass="nav-button"/>
+            <Label text="CV Editor" styleClass="nav-title"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Button text="Analyze" onAction="#handleAnalyze" styleClass="primary-button"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="16" style="-fx-padding: 20; -fx-min-width: 180; -fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-width: 0 1 0 0;">
+            <Label text="Sections" styleClass="section-heading"/>
+            <ListView fx:id="sectionList" VBox.vgrow="ALWAYS"/>
+            <Button text="+ Add Section" onAction="#handleAddSection"
+                    styleClass="secondary-button" maxWidth="Infinity"/>
+            <Separator/>
+            <Label text="Templates" styleClass="section-heading"/>
+            <ToggleGroup fx:id="templateGroup"/>
+            <RadioButton text="Modern"  fx:id="modernTemplate"  toggleGroup="$templateGroup"/>
+            <RadioButton text="Classic" fx:id="classicTemplate" toggleGroup="$templateGroup" selected="true"/>
+            <RadioButton text="Minimal" fx:id="minimalTemplate" toggleGroup="$templateGroup"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox style="-fx-padding: 24;" spacing="12">
+            <Label fx:id="sectionTitleLabel" text="Select a section to edit"
+                   styleClass="section-heading"/>
+            <TextArea fx:id="editorArea"
+                      VBox.vgrow="ALWAYS"
+                      wrapText="true"
+                      promptText="Start typing your CV content here..."/>
+        </VBox>
+    </center>
+
+</BorderPane>

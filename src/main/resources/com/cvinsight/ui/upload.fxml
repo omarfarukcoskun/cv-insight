@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cvinsight.ui.controllers.UploadController"
+            stylesheets="@styles.css">
+
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="16">
+            <Button text="← Back" onAction="#handleBack" styleClass="nav-button"/>
+            <Label text="Upload Your CV" styleClass="nav-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="24" style="-fx-padding: 48;">
+
+            <!-- Drop zone -->
+            <VBox fx:id="dropZone"
+                  styleClass="drop-zone"
+                  alignment="CENTER" spacing="12"
+                  prefHeight="220" prefWidth="480"
+                  onDragOver="#handleDragOver"
+                  onDragDropped="#handleDragDropped"
+                  onDragExited="#handleDragExited"
+                  onMouseClicked="#handleBrowse">
+
+                <Label text="Drag &amp; drop your CV here" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #6b7280;"/>
+                <Label text="PDF or TXT only"              style="-fx-font-size: 13px; -fx-text-fill: #9ca3af;"/>
+                <Button text="Browse Files" onAction="#handleBrowse" styleClass="secondary-button"/>
+            </VBox>
+
+            <!-- Selected file indicator -->
+            <Label fx:id="selectedFileLabel"
+                   visible="false" managed="false"
+                   style="-fx-text-fill: #166534; -fx-font-weight: bold;"/>
+
+            <!-- Error -->
+            <Label fx:id="errorLabel" styleClass="error-label"
+                   visible="false" managed="false" wrapText="true"/>
+
+            <!-- Analyze button -->
+            <Button fx:id="analyzeButton"
+                    text="Analyze CV"
+                    onAction="#handleAnalyze"
+                    styleClass="primary-button"
+                    prefWidth="200"
+                    visible="false" managed="false"/>
+
+        </VBox>
+    </center>
+
+</BorderPane>

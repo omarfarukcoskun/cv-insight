@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cvinsight.ui.controllers.DashboardController"
+            stylesheets="@styles.css">
+
+    <!-- Nav bar -->
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="16">
+            <Label text="CV Insight" styleClass="nav-title"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label fx:id="userLabel" styleClass="subtitle-label"
+                   style="-fx-text-fill: #9ca3af;"/>
+            <Button text="Logout" onAction="#handleLogout" styleClass="nav-button"/>
+        </HBox>
+    </top>
+
+    <!-- Main content -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox spacing="24" style="-fx-padding: 32;">
+
+                <!-- Actions row -->
+                <Label text="What would you like to do?" styleClass="section-heading"/>
+
+                <HBox spacing="16">
+                    <Button text="Upload CV"        onAction="#handleUpload"      styleClass="primary-button"   prefWidth="160" prefHeight="60"/>
+                    <Button text="Create CV"        onAction="#handleCreateCV"    styleClass="secondary-button" prefWidth="160" prefHeight="60"/>
+                    <Button text="Browse Examples"  onAction="#handleExamples"    styleClass="secondary-button" prefWidth="160" prefHeight="60"/>
+                </HBox>
+
+                <!-- Recent analyses -->
+                <VBox spacing="12">
+                    <Label text="Recent Analyses" styleClass="section-heading"/>
+                    <VBox fx:id="historyContainer" spacing="10">
+                        <Label fx:id="emptyHistoryLabel" text="No analyses yet. Upload a CV to get started."
+                               styleClass="subtitle-label" visible="false" managed="false"/>
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
