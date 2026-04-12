@@ -48,6 +48,18 @@ public class ExampleCVDao {
         return queryExamples("SELECT * FROM example_cvs WHERE company = ? ORDER BY score DESC", null, company);
     }
 
+    public List<String> findDistinctCompanies() throws SQLException {
+        List<String> companies = new ArrayList<>();
+        String sql = "SELECT DISTINCT company FROM example_cvs WHERE company IS NOT NULL ORDER BY company";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                companies.add(rs.getString("company"));
+            }
+        }
+        return companies;
+    }
+
     private List<CV> queryExamples(String sql, String category, String company) throws SQLException {
         List<CV> results = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql)) {

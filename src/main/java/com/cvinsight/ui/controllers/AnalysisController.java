@@ -39,6 +39,9 @@ public class AnalysisController implements AnalysisObserver {
     @FXML private VBox       feedbackContainer;
     @FXML private Button     reRunButton;
 
+    @FXML private VBox       errorPane;
+    @FXML private Label      errorMessageLabel;
+
     private CV              cv;
     private AnalysisService analysisService;
 
@@ -75,9 +78,11 @@ public class AnalysisController implements AnalysisObserver {
     @Override
     public void onAnalysisError(String errorMessage) {
         Platform.runLater(() -> {
-            progressBar.setProgress(-1); // indeterminate = error indication
-            statusLabel.setText("Analysis failed: " + errorMessage);
-            statusLabel.setStyle("-fx-text-fill: #dc2626;");
+            loadingPane.setVisible(false);
+            loadingPane.setManaged(false);
+            errorMessageLabel.setText(errorMessage);
+            errorPane.setVisible(true);
+            errorPane.setManaged(true);
             analysisService.removeObserver(this);
         });
     }
@@ -114,11 +119,13 @@ public class AnalysisController implements AnalysisObserver {
 
     @FXML
     private void handleReRun() {
-        // Reset to loading state and re-run
+        // Reset to loading state and re-run (handles both results→retry and error→retry)
         loadingPane.setVisible(true);
         loadingPane.setManaged(true);
         resultsPane.setVisible(false);
         resultsPane.setManaged(false);
+        errorPane.setVisible(false);
+        errorPane.setManaged(false);
         reRunButton.setVisible(false);
         reRunButton.setManaged(false);
         progressBar.setProgress(0);

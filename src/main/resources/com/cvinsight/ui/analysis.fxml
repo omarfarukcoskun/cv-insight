@@ -56,6 +56,21 @@
                 </HBox>
             </ScrollPane>
 
+            <!-- Error pane — shown when analysis fails -->
+            <VBox fx:id="errorPane" alignment="CENTER" spacing="20"
+                  visible="false" managed="false"
+                  style="-fx-padding: 48;">
+                <Label text="Analysis Failed" styleClass="section-heading"
+                       style="-fx-text-fill: #dc2626; -fx-font-size: 20px;"/>
+                <Label fx:id="errorMessageLabel" wrapText="true"
+                       maxWidth="480" textAlignment="CENTER"
+                       styleClass="subtitle-label"/>
+                <HBox spacing="12" alignment="CENTER">
+                    <Button text="Try Again"     onAction="#handleReRun"  styleClass="primary-button"/>
+                    <Button text="← Dashboard"  onAction="#handleBack"   styleClass="secondary-button"/>
+                </HBox>
+            </VBox>
+
         </StackPane>
     </center>
 

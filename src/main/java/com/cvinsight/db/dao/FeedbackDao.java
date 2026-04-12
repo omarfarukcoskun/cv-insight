@@ -21,7 +21,7 @@ public class FeedbackDao {
     }
 
     public void insert(Feedback feedback) throws SQLException {
-        String sql = "INSERT INTO feedbacks (id, cv_id, strengths, weaknesses, suggestions) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT OR REPLACE INTO feedbacks (id, cv_id, strengths, weaknesses, suggestions) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, feedback.getId());
             ps.setString(2, feedback.getCvId());

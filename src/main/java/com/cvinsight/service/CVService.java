@@ -7,6 +7,8 @@ import com.cvinsight.db.dao.CVDao;
 import com.cvinsight.model.CV;
 import com.cvinsight.model.CVSection;
 
+import com.cvinsight.model.CVStatus;
+
 import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -63,6 +65,51 @@ public class CVService {
             return cvDao.findById(id);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to fetch CV: " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Saves a CV built manually in the editor (no file parsing).
+     * Concatenates all section content as rawText, assigns identity fields, persists to DB.
+     */
+    public CV saveNewCV(List<CVSection> sections) {
+        String cvId   = UUID.randomUUID().toString();
+        String userId = SessionManager.getInstance().getCurrentUser().getId();
+        String owner  = SessionManager.getInstance().getCurrentUser().getUsername();
+
+        StringBuilder rawText = new StringBuilder();
+        for (CVSection section : sections) {
+            section.setCvId(cvId);
+            if (section.getId() == null) {
+                section.setId(UUID.randomUUID().toString());
+            }
+            rawText.append(section.getTitle()).append("\n")
+                   .append(section.getContent()).append("\n\n");
+        }
+
+        CV cv = new CV();
+        cv.setId(cvId);
+        cv.setUserId(userId);
+        cv.setOwnerName(owner);
+        cv.setRawText(rawText.toString().trim());
+        cv.setSections(sections);
+        cv.setSourceFile(null);
+        cv.setUploadedAt(LocalDateTime.now());
+        cv.setStatus(CVStatus.PENDING);
+
+        try {
+            cvDao.insert(cv);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to save CV: " + e.getMessage(), e);
+        }
+        return cv;
+    }
+
+    public void deleteCV(String cvId) {
+        try {
+            cvDao.delete(cvId);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to delete CV: " + e.getMessage(), e);
         }
     }
 

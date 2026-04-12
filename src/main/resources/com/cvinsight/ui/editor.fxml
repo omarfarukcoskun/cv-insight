@@ -11,19 +11,23 @@
             <Button text="← Back" onAction="#handleBack" styleClass="nav-button"/>
             <Label text="CV Editor" styleClass="nav-title"/>
             <HBox HBox.hgrow="ALWAYS"/>
+            <Button text="Save CV" onAction="#handleSave" styleClass="secondary-button"
+                    style="-fx-border-color: white; -fx-text-fill: white;"/>
             <Button text="Analyze" onAction="#handleAnalyze" styleClass="primary-button"/>
         </HBox>
     </top>
 
     <left>
         <VBox spacing="16" style="-fx-padding: 20; -fx-min-width: 180; -fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-width: 0 1 0 0;">
+            <fx:define>
+                <ToggleGroup fx:id="templateGroup"/>
+            </fx:define>
             <Label text="Sections" styleClass="section-heading"/>
             <ListView fx:id="sectionList" VBox.vgrow="ALWAYS"/>
             <Button text="+ Add Section" onAction="#handleAddSection"
                     styleClass="secondary-button" maxWidth="Infinity"/>
             <Separator/>
             <Label text="Templates" styleClass="section-heading"/>
-            <ToggleGroup fx:id="templateGroup"/>
             <RadioButton text="Modern"  fx:id="modernTemplate"  toggleGroup="$templateGroup"/>
             <RadioButton text="Classic" fx:id="classicTemplate" toggleGroup="$templateGroup" selected="true"/>
             <RadioButton text="Minimal" fx:id="minimalTemplate" toggleGroup="$templateGroup"/>

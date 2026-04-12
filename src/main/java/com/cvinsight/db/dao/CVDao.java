@@ -35,6 +35,22 @@ public class CVDao {
         insertSections(cv.getId(), cv.getSections());
     }
 
+    public void delete(String cvId) throws SQLException {
+        // Delete related records first (no ON DELETE CASCADE in SQLite by default)
+        try (PreparedStatement ps = conn.prepareStatement("DELETE FROM cv_sections WHERE cv_id = ?")) {
+            ps.setString(1, cvId); ps.executeUpdate();
+        }
+        try (PreparedStatement ps = conn.prepareStatement("DELETE FROM scores WHERE cv_id = ?")) {
+            ps.setString(1, cvId); ps.executeUpdate();
+        }
+        try (PreparedStatement ps = conn.prepareStatement("DELETE FROM feedbacks WHERE cv_id = ?")) {
+            ps.setString(1, cvId); ps.executeUpdate();
+        }
+        try (PreparedStatement ps = conn.prepareStatement("DELETE FROM cvs WHERE id = ?")) {
+            ps.setString(1, cvId); ps.executeUpdate();
+        }
+    }
+
     public void updateStatus(String cvId, CVStatus status) throws SQLException {
         String sql = "UPDATE cvs SET status = ? WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {

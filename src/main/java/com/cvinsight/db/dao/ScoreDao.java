@@ -16,7 +16,7 @@ public class ScoreDao {
     }
 
     public void insert(Score score) throws SQLException {
-        String sql = "INSERT INTO scores (id, cv_id, overall, analyzed_at) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT OR REPLACE INTO scores (id, cv_id, overall, analyzed_at) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, score.getId());
             ps.setString(2, score.getCvId());
