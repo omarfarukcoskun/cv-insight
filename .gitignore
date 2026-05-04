@@ -1,0 +1,8 @@
+target/
+*.db
+*.class
+.idea/
+*.iml
+.DS_Store
+
+.fake
