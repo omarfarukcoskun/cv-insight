@@ -1,8 +1,6 @@
 package com.cvinsight.ai.client;
 
 import com.cvinsight.ai.CVAnalysisException;
-import com.cvinsight.config.AppConfig;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import okhttp3.*;
@@ -11,17 +9,17 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Sends prompts to the Anthropic Messages API and returns Claude's raw text response.
+ * Sends prompts to the Ollama local API and returns the model's raw text response.
  *
- * API reference: https://docs.anthropic.com/en/api/messages
+ * API reference: https://github.com/ollama/ollama/blob/main/docs/api.md#generate-a-completion
  *
  * This class handles only the HTTP concern — it knows nothing about CV models
  * or how to parse the JSON feedback. That is ResponseParser's job.
  */
 public class ClaudeApiClient {
 
-    private static final String API_URL      = "https://api.anthropic.com/v1/messages";
-    private static final String API_VERSION  = "2023-06-01";
+    private static final String API_URL      = "http://localhost:11434/api/generate";
+    private static final String MODEL        = "llama3";
     private static final MediaType JSON_TYPE = MediaType.get("application/json; charset=utf-8");
 
     private final OkHttpClient httpClient;
@@ -29,16 +27,16 @@ public class ClaudeApiClient {
     public ClaudeApiClient() {
         this.httpClient = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)   // AI responses can be slow
+            .readTimeout(120, TimeUnit.SECONDS)  // local LLM responses can be slow
             .writeTimeout(30, TimeUnit.SECONDS)
             .build();
     }
 
     /**
-     * Sends the given prompt to Claude and returns its text response.
+     * Sends the given prompt to Ollama and returns its text response.
      *
      * @param prompt  The full prompt string built by PromptBuilder
-     * @return        Claude's raw text reply (the JSON feedback string)
+     * @return        The model's raw text reply (the JSON feedback string)
      * @throws CVAnalysisException on network error, API error, or unexpected response shape
      */
     public String send(String prompt) throws CVAnalysisException {
@@ -46,9 +44,7 @@ public class ClaudeApiClient {
 
         Request request = new Request.Builder()
             .url(API_URL)
-            .addHeader("x-api-key",         AppConfig.getAnthropicApiKey())
-            .addHeader("anthropic-version", API_VERSION)
-            .addHeader("content-type",      "application/json")
+            .addHeader("Content-Type", "application/json")
             .post(RequestBody.create(requestBody, JSON_TYPE))
             .build();
 
@@ -57,65 +53,60 @@ public class ClaudeApiClient {
 
             if (!response.isSuccessful()) {
                 throw new CVAnalysisException(
-                    "Claude API returned error " + response.code() + ": " + responseBody
+                    "Ollama API returned error " + response.code() + ": " + responseBody
                 );
             }
 
             return extractText(responseBody);
 
         } catch (IOException e) {
-            throw new CVAnalysisException("Network error while calling Claude API: " + e.getMessage(), e);
+            throw new CVAnalysisException("Network error while calling Ollama API: " + e.getMessage(), e);
         }
     }
 
     /**
-     * Builds the Anthropic Messages API request body.
+     * Builds the Ollama /api/generate request body.
      *
      * Shape:
      * {
-     *   "model": "claude-sonnet-4-6",
-     *   "max_tokens": 1024,
-     *   "messages": [{"role": "user", "content": "<prompt>"}]
+     *   "model": "llama3",
+     *   "prompt": "<prompt>",
+     *   "stream": false
      * }
      */
     private String buildRequestBody(String prompt) {
-        JsonObject message = new JsonObject();
-        message.addProperty("role", "user");
-        message.addProperty("content", prompt);
-
-        JsonArray messages = new JsonArray();
-        messages.add(message);
-
         JsonObject body = new JsonObject();
-        body.addProperty("model",      AppConfig.getClaudeModel());
-        body.addProperty("max_tokens", AppConfig.getMaxTokens());
-        body.add("messages", messages);
-
+        body.addProperty("model",  MODEL);
+        body.addProperty("prompt", prompt);
+        body.addProperty("stream", false);
         return body.toString();
     }
 
     /**
-     * Extracts the text from Claude's response envelope.
+     * Extracts the text from Ollama's response envelope.
      *
      * Response shape:
      * {
-     *   "content": [{"type": "text", "text": "<the feedback JSON>"}],
+     *   "model": "llama3",
+     *   "response": "<the feedback JSON>",
+     *   "done": true,
      *   ...
      * }
      */
     private String extractText(String responseBody) throws CVAnalysisException {
         try {
-            JsonObject root    = JsonParser.parseString(responseBody).getAsJsonObject();
-            JsonArray  content = root.getAsJsonArray("content");
+            JsonObject root = JsonParser.parseString(responseBody).getAsJsonObject();
 
-            if (content == null || content.isEmpty()) {
-                throw new CVAnalysisException("Claude returned an empty response.");
+            if (!root.has("response") || root.get("response").isJsonNull()) {
+                throw new CVAnalysisException("Ollama returned an empty response.");
             }
 
-            return content.get(0).getAsJsonObject().get("text").getAsString();
+            return root.get("response").getAsString();
 
+        } catch (CVAnalysisException e) {
+            throw e;
         } catch (Exception e) {
-            throw new CVAnalysisException("Failed to parse Claude response envelope: " + e.getMessage(), e);
+            throw new CVAnalysisException("Failed to parse Ollama response envelope: " + e.getMessage(), e);
         }
     }
 }
