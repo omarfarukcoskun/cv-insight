@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.cvinsight.ui.controllers.RegisterController"
+      alignment="CENTER" spacing="0"
+      stylesheets="@styles.css">
+
+    <VBox alignment="CENTER" spacing="24" maxWidth="380"
+          VBox.vgrow="ALWAYS" style="-fx-padding: 48 0 48 0;">
+
+        <VBox alignment="CENTER" spacing="6">
+            <Label text="CV Insight" styleClass="title-label"/>
+            <Label text="Create your account" styleClass="subtitle-label"/>
+        </VBox>
+
+        <VBox styleClass="card" spacing="14" maxWidth="360">
+
+            <Label text="Username"/>
+            <TextField fx:id="usernameField" promptText="johndoe"/>
+
+            <Label text="Email"/>
+            <TextField fx:id="emailField" promptText="you@example.com"/>
+
+            <Label text="Password"/>
+            <PasswordField fx:id="passwordField" promptText="Min. 6 characters"/>
+
+            <Label text="Confirm Password"/>
+            <PasswordField fx:id="confirmPasswordField" promptText="Repeat password"/>
+
+            <Label fx:id="errorLabel" styleClass="error-label"
+                   visible="false" managed="false" wrapText="true"/>
+
+            <Button text="Create Account"
+                    onAction="#handleRegister"
+                    maxWidth="Infinity"
+                    styleClass="primary-button"/>
+
+            <Button text="Already have an account? Login"
+                    onAction="#handleGoToLogin"
+                    maxWidth="Infinity"
+                    styleClass="link-button"/>
+        </VBox>
+    </VBox>
+</VBox>
