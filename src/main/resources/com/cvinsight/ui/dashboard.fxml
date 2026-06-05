@@ -4,40 +4,70 @@
 <?import javafx.geometry.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.cvinsight.ui.controllers.DashboardController"
-            stylesheets="@styles.css">
+            stylesheets="@styles.css"
+            style="-fx-background-color: #f8fafc;">
 
-    <!-- Nav bar -->
+    <!-- ── Sticky Nav Bar ─────────────────────────────────────────────────── -->
     <top>
-        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="16">
-            <Label text="CV Insight" styleClass="nav-title"/>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" spacing="12">
+
+            <!-- Logo + tagline -->
+            <VBox spacing="1">
+                <Label text="CV Insight" styleClass="dash-logo"/>
+                <Label text="Build stronger resumes" styleClass="dash-tagline"/>
+            </VBox>
+
             <HBox HBox.hgrow="ALWAYS"/>
-            <Label fx:id="userLabel" styleClass="subtitle-label"
-                   style="-fx-text-fill: #9ca3af;"/>
-            <Button text="Logout" onAction="#handleLogout" styleClass="nav-button"/>
+
+            <!-- User avatar circle -->
+            <Label fx:id="userAvatarLabel" styleClass="user-avatar" minWidth="38" minHeight="38"/>
+
+            <!-- Name + role -->
+            <VBox spacing="1" alignment="CENTER_LEFT">
+                <Label fx:id="userNameLabel" styleClass="dash-user-name"/>
+                <Label text="My Account" styleClass="dash-user-role"/>
+            </VBox>
+
+            <Button text="Log out" onAction="#handleLogout" styleClass="nav-button"/>
         </HBox>
     </top>
 
-    <!-- Main content -->
+    <!-- ── Scrollable Body ────────────────────────────────────────────────── -->
     <center>
-        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
-            <VBox spacing="24" style="-fx-padding: 32;">
+        <ScrollPane fitToWidth="true" styleClass="dash-scroll">
+            <VBox spacing="32" maxWidth="Infinity"
+                  style="-fx-padding: 36 48 48 48;">
 
-                <!-- Actions row -->
-                <Label text="What would you like to do?" styleClass="section-heading"/>
+                <!-- 1. Hero welcome -->
+                <VBox spacing="6">
+                    <Label fx:id="welcomeLabel" styleClass="dash-welcome"/>
+                    <Label text="Manage your resumes, track improvements, and optimize your chances of getting interviews."
+                           styleClass="dash-hero-sub" maxWidth="600"/>
+                </VBox>
 
-                <HBox spacing="16">
-                    <Button text="Upload CV"        onAction="#handleUpload"      styleClass="primary-button"   prefWidth="160" prefHeight="60"/>
-                    <Button text="Create CV"        onAction="#handleCreateCV"    styleClass="secondary-button" prefWidth="160" prefHeight="60"/>
-                    <Button text="Browse Examples"  onAction="#handleExamples"    styleClass="secondary-button" prefWidth="160" prefHeight="60"/>
-                </HBox>
+                <!-- 2. Stats row — filled programmatically -->
+                <HBox fx:id="statsRow" spacing="16"/>
 
-                <!-- Recent analyses -->
-                <VBox spacing="12">
-                    <Label text="Recent Analyses" styleClass="section-heading"/>
-                    <VBox fx:id="historyContainer" spacing="10">
-                        <Label fx:id="emptyHistoryLabel" text="No analyses yet. Upload a CV to get started."
-                               styleClass="subtitle-label" visible="false" managed="false"/>
+                <!-- 3. Quick Actions — filled programmatically -->
+                <VBox spacing="14">
+                    <Label text="Quick Actions" styleClass="dash-section-title"/>
+                    <HBox fx:id="actionsRow" spacing="16"/>
+                </VBox>
+
+                <!-- 4. Recent Resumes — filled programmatically -->
+                <VBox spacing="14">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Recent Resumes" styleClass="dash-section-title"/>
+                    </HBox>
+                    <VBox fx:id="historyContainer" spacing="8">
+                        <!-- rows injected by controller; empty-state also injected -->
                     </VBox>
+                </VBox>
+
+                <!-- 5. AI Tips — filled programmatically -->
+                <VBox fx:id="tipsSection" spacing="14" managed="false" visible="false">
+                    <Label text="AI Recommendations" styleClass="dash-section-title"/>
+                    <VBox fx:id="tipsContainer" spacing="8"/>
                 </VBox>
 
             </VBox>

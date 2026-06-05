@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cvinsight.ui.controllers.BuildResumeController"
+            stylesheets="@styles.css">
+
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="12">
+            <Button text="← Back"        onAction="#handleBack"        styleClass="nav-button"/>
+            <Label  text="Build Resume"  styleClass="nav-title"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Button text="Upload PDF"    onAction="#handleUploadPdf"   styleClass="nav-button"/>
+            <Button text="Save"          onAction="#handleSave"        styleClass="nav-button"/>
+            <Button text="Download PDF"  onAction="#handleDownloadPdf" styleClass="primary-button"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.3"
+                   style="-fx-box-border: transparent; -fx-padding: 0;">
+
+            <!-- Left panel: editor sidebar (30% of width, min 220px) -->
+            <ScrollPane fx:id="leftScrollPane" fitToWidth="true"
+                        style="-fx-min-width: 220; -fx-background-color: #f9fafb; -fx-border-color: transparent;">
+                <VBox fx:id="sectionsContainer" spacing="0"/>
+            </ScrollPane>
+
+            <!-- Right panel: live preview (70% of width, fills fully) -->
+            <ScrollPane styleClass="preview-scroll" fitToWidth="true"
+                        style="-fx-background-color: #c8c8c8; -fx-border-color: transparent;">
+                <WebView fx:id="previewWebView"/>
+            </ScrollPane>
+
+        </SplitPane>
+    </center>
+
+</BorderPane>

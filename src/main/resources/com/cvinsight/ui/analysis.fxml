@@ -4,70 +4,81 @@
 <?import javafx.geometry.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.cvinsight.ui.controllers.AnalysisController"
-            stylesheets="@styles.css">
+            stylesheets="@styles.css"
+            style="-fx-background-color: #f5f5f5;">
 
+    <!-- ── Nav bar — white surface, matches dashboard ────────────────────── -->
     <top>
-        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="16">
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" spacing="16">
             <Button text="← Dashboard" onAction="#handleBack" styleClass="nav-button"/>
-            <Label text="CV Analysis" styleClass="nav-title"/>
+            <Label text="CV Analysis" styleClass="dash-logo"/>
             <HBox HBox.hgrow="ALWAYS"/>
             <Button fx:id="reRunButton" text="Re-analyze"
                     onAction="#handleReRun" styleClass="secondary-button"
-                    visible="false" managed="false"
-                    style="-fx-text-fill: white; -fx-border-color: white;"/>
+                    visible="false" managed="false"/>
         </HBox>
     </top>
 
+    <!-- ── Main content ──────────────────────────────────────────────────── -->
     <center>
         <StackPane>
 
-            <!-- Loading pane — shown while analysis runs -->
-            <VBox fx:id="loadingPane" alignment="CENTER" spacing="20"
-                  style="-fx-padding: 48;">
-                <Label text="Analyzing your CV..." styleClass="section-heading"/>
-                <ProgressBar fx:id="progressBar" prefWidth="400" progress="0"/>
-                <Label fx:id="statusLabel" text="Preparing..." styleClass="subtitle-label"/>
+            <!-- Loading state -->
+            <VBox fx:id="loadingPane" alignment="CENTER" spacing="16"
+                  style="-fx-padding: 64;">
+                <Label text="Analyzing your CV…"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0f172a;"/>
+                <ProgressBar fx:id="progressBar" prefWidth="360" progress="0"
+                             style="-fx-accent: #4f46e5;"/>
+                <Label fx:id="statusLabel" text="Preparing…" styleClass="subtitle-label"/>
             </VBox>
 
-            <!-- Results pane — shown when complete -->
+            <!-- Results — visible after analysis completes -->
             <ScrollPane fx:id="resultsPane" fitToWidth="true"
                         visible="false" managed="false"
-                        style="-fx-background-color: transparent; -fx-border-color: transparent;">
-                <HBox spacing="24" style="-fx-padding: 32;" alignment="TOP_LEFT">
+                        styleClass="dash-scroll">
+                <HBox spacing="20" style="-fx-padding: 28 32 32 32;" alignment="TOP_LEFT">
 
-                    <!-- Left column: score + meta -->
-                    <VBox spacing="16" prefWidth="200" minWidth="180">
-                        <VBox styleClass="card" spacing="12" alignment="CENTER">
-                            <Label text="Overall Score" styleClass="section-heading"/>
+                    <!-- Left column: score card + compare button -->
+                    <VBox spacing="12" prefWidth="210" minWidth="190">
+
+                        <!-- Score card -->
+                        <VBox styleClass="analysis-score-card" spacing="14" alignment="CENTER">
+                            <Label text="OVERALL SCORE" styleClass="analysis-score-title"/>
                             <VBox fx:id="scoreCardContainer" alignment="CENTER"/>
-                            <Label fx:id="cvNameLabel" styleClass="subtitle-label" wrapText="true"/>
-                            <Label fx:id="analyzedAtLabel" styleClass="subtitle-label"/>
+                            <Label fx:id="cvNameLabel" styleClass="subtitle-label"
+                                   wrapText="true" maxWidth="180"
+                                   style="-fx-font-size: 12px; -fx-alignment: center; -fx-text-alignment: center;"/>
+                            <Label fx:id="analyzedAtLabel" styleClass="subtitle-label"
+                                   style="-fx-font-size: 11px;"/>
                         </VBox>
+
+                        <!-- Compare action -->
                         <Button text="Compare with Examples"
                                 onAction="#handleCompare"
                                 styleClass="secondary-button"
                                 maxWidth="Infinity"/>
                     </VBox>
 
-                    <!-- Right column: feedback -->
+                    <!-- Right column: feedback sections -->
                     <VBox fx:id="feedbackContainer" HBox.hgrow="ALWAYS"
-                          styleClass="card" spacing="8"/>
+                          styleClass="analysis-feedback-card" spacing="0"/>
 
                 </HBox>
             </ScrollPane>
 
-            <!-- Error pane — shown when analysis fails -->
-            <VBox fx:id="errorPane" alignment="CENTER" spacing="20"
+            <!-- Error state -->
+            <VBox fx:id="errorPane" alignment="CENTER" spacing="16"
                   visible="false" managed="false"
-                  style="-fx-padding: 48;">
-                <Label text="Analysis Failed" styleClass="section-heading"
-                       style="-fx-text-fill: #dc2626; -fx-font-size: 20px;"/>
+                  style="-fx-padding: 64;">
+                <Label text="Analysis Failed"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #dc2626;"/>
                 <Label fx:id="errorMessageLabel" wrapText="true"
-                       maxWidth="480" textAlignment="CENTER"
+                       maxWidth="460" textAlignment="CENTER"
                        styleClass="subtitle-label"/>
                 <HBox spacing="12" alignment="CENTER">
-                    <Button text="Try Again"     onAction="#handleReRun"  styleClass="primary-button"/>
-                    <Button text="← Dashboard"  onAction="#handleBack"   styleClass="secondary-button"/>
+                    <Button text="Try Again"    onAction="#handleReRun" styleClass="primary-button"/>
+                    <Button text="← Dashboard" onAction="#handleBack"  styleClass="secondary-button"/>
                 </HBox>
             </VBox>
 

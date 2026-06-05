@@ -203,3 +203,486 @@
     -fx-border-width: 1;
     -fx-border-radius: 8;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DASHBOARD REDESIGN — all classes below are dashboard-specific
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Dashboard Nav ───────────────────────────────────────────────────────── */
+.dash-nav {
+    -fx-background-color: white;
+    -fx-padding: 14 32 14 32;
+    -fx-border-color: transparent transparent #f1f5f9 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);
+}
+
+.dash-logo {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.dash-tagline {
+    -fx-font-size: 11px;
+    -fx-text-fill: #94a3b8;
+}
+
+.user-avatar {
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 20;
+    -fx-min-width: 38;
+    -fx-min-height: 38;
+    -fx-max-width: 38;
+    -fx-max-height: 38;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: center;
+}
+
+.dash-user-name {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.dash-user-role {
+    -fx-font-size: 11px;
+    -fx-text-fill: #94a3b8;
+}
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+.dash-welcome {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.dash-hero-sub {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+    -fx-wrap-text: true;
+}
+
+/* ── Stat Cards ──────────────────────────────────────────────────────────── */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-padding: 20 22 20 22;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.055), 10, 0, 0, 2);
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+}
+
+.stat-value {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.stat-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+}
+
+/* ── Action Cards ────────────────────────────────────────────────────────── */
+.action-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.055), 10, 0, 0, 2);
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-cursor: hand;
+}
+
+.action-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.action-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748b;
+    -fx-wrap-text: true;
+}
+
+/* ── History Rows (redesigned) ───────────────────────────────────────────── */
+.history-row {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 14 18 14 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 1);
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.history-row:hover {
+    -fx-border-color: #e0e7ff;
+    -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.10), 14, 0, 0, 3);
+}
+
+.history-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.history-meta {
+    -fx-font-size: 12px;
+    -fx-text-fill: #94a3b8;
+}
+
+/* ── Score Chips ─────────────────────────────────────────────────────────── */
+.score-chip {
+    -fx-background-radius: 20;
+    -fx-padding: 4 12 4 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.score-chip-high {
+    -fx-background-color: #dcfce7;
+    -fx-text-fill: #166534;
+}
+
+.score-chip-mid {
+    -fx-background-color: #fef9c3;
+    -fx-text-fill: #854d0e;
+}
+
+.score-chip-low {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #991b1b;
+}
+
+.score-chip-pending {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #64748b;
+}
+
+/* ── Small Buttons (history row actions) ─────────────────────────────────── */
+.small-action-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: #475569;
+    -fx-font-size: 12px;
+    -fx-padding: 5 12 5 12;
+    -fx-cursor: hand;
+}
+
+.small-action-btn:hover {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+    -fx-text-fill: #334155;
+}
+
+.small-danger-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #fecaca;
+    -fx-border-width: 1;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: #ef4444;
+    -fx-font-size: 12px;
+    -fx-padding: 5 12 5 12;
+    -fx-cursor: hand;
+}
+
+.small-danger-btn:hover {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #ef4444;
+}
+
+/* ── Tip Cards ───────────────────────────────────────────────────────────── */
+.tip-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 14 18 14 18;
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 6, 0, 0, 1);
+}
+
+.tip-badge-high {
+    -fx-background-color: #fee2e2;
+    -fx-background-radius: 5;
+    -fx-padding: 2 8 2 8;
+    -fx-text-fill: #dc2626;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+.tip-badge-med {
+    -fx-background-color: #fef9c3;
+    -fx-background-radius: 5;
+    -fx-padding: 2 8 2 8;
+    -fx-text-fill: #a16207;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+.tip-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #374151;
+    -fx-wrap-text: true;
+}
+
+/* ── Section Title (dashboard variant) ──────────────────────────────────── */
+.dash-section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+/* ── Empty State ─────────────────────────────────────────────────────────── */
+.empty-state-icon {
+    -fx-font-size: 40px;
+    -fx-alignment: center;
+}
+
+.empty-state-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+}
+
+.empty-state-sub {
+    -fx-font-size: 13px;
+    -fx-text-fill: #94a3b8;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+/* ── ScrollPane background ───────────────────────────────────────────────── */
+.dash-scroll {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.dash-scroll > .viewport {
+    -fx-background-color: #f8fafc;
+}
+
+/* ── Clickable stat card (Total Resumes) ─────────────────────────────────── */
+.clickable-stat-card {
+    -fx-cursor: hand;
+}
+
+.clickable-stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.18), 22, 0, 0, 5);
+    -fx-border-color: #e0e7ff;
+}
+
+/* ── Hint label (shown on clickable stat card hover) ────────────────────── */
+.hint-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6366f1;
+    -fx-font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MY RESUMES PAGE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.page-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.page-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+
+.count-badge {
+    -fx-background-color: #eef2ff;
+    -fx-background-radius: 20;
+    -fx-padding: 4 14 4 14;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4f46e5;
+}
+
+/* ── Resume rows ─────────────────────────────────────────────────────────── */
+.resume-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-padding: 18 20 18 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+}
+
+.resume-card:hover {
+    -fx-border-color: #e0e7ff;
+    -fx-effect: dropshadow(gaussian, rgba(79,70,229,0.10), 14, 0, 0, 3);
+}
+
+.resume-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.resume-meta {
+    -fx-font-size: 12px;
+    -fx-text-fill: #94a3b8;
+}
+
+/* ── Status chips ────────────────────────────────────────────────────────── */
+.status-chip {
+    -fx-background-radius: 20;
+    -fx-padding: 3 10 3 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.status-analyzed {
+    -fx-background-color: #dcfce7;
+    -fx-text-fill: #166534;
+}
+
+.status-pending {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #64748b;
+}
+
+/* ── Error card ──────────────────────────────────────────────────────────── */
+.error-card {
+    -fx-background-color: #fff5f5;
+    -fx-background-radius: 12;
+    -fx-padding: 16 20 16 20;
+    -fx-border-color: #fecaca;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DELETE CONFIRM DIALOG  (custom undecorated Stage)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Outer card — white, fully rounded, floating shadow */
+.del-dlg-root {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.26), 36, 0, 0, 10);
+}
+
+/* Red-tinted top section containing the icon */
+.del-dlg-top {
+    -fx-background-color: #fef2f2;
+    -fx-background-radius: 16 16 0 0;
+    -fx-padding: 28 0 22 0;
+}
+
+/* Circular icon badge — light-red background */
+.del-dlg-icon {
+    -fx-background-color: #fee2e2;
+    -fx-background-radius: 34;
+}
+
+/* "Delete Resume?" heading */
+.del-dlg-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+/* Filename chip */
+.del-dlg-file {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 7;
+    -fx-padding: 5 13 5 13;
+}
+
+/* Body description text */
+.del-dlg-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+/* Cancel button */
+.del-dlg-cancel {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #374151;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 0 12 0;
+    -fx-background-radius: 9;
+    -fx-cursor: hand;
+}
+
+.del-dlg-cancel:hover {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #1e293b;
+}
+
+/* Delete permanently button */
+.del-dlg-danger {
+    -fx-background-color: #dc2626;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 0 12 0;
+    -fx-background-radius: 9;
+    -fx-cursor: hand;
+}
+
+.del-dlg-danger:hover {
+    -fx-background-color: #b91c1c;
+}
+
+/* ── Build Resume preview panel ─────────────────────────────────────────── */
+
+/* Color the ScrollPane viewport (inner content area) the same gray as the
+   HTML body background so the area below the WebView content is seamless. */
+.preview-scroll > .viewport {
+    -fx-background-color: #c8c8c8;
+}
+
+/* ── Analysis page ───────────────────────────────────────────────────────── */
+
+.analysis-score-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 6, 0, 0, 1);
+}
+
+.analysis-score-title {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #94a3b8;
+}
+
+.analysis-feedback-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 6, 0, 0, 1);
+}
+

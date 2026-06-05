@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cvinsight.ui.controllers.MyResumesController"
+            stylesheets="@styles.css"
+            style="-fx-background-color: #f8fafc;">
+
+    <!-- ── Nav bar ──────────────────────────────────────────────────────────── -->
+    <top>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" spacing="12">
+            <Button text="← Back"      onAction="#handleBack"      styleClass="nav-button"/>
+            <Label  text="My Resumes"  styleClass="dash-logo"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label  fx:id="countLabel" styleClass="count-badge"/>
+            <Button text="Upload New"  onAction="#handleUploadNew" styleClass="primary-button"/>
+        </HBox>
+    </top>
+
+    <!-- ── Body ─────────────────────────────────────────────────────────────── -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="dash-scroll">
+            <VBox spacing="24" maxWidth="Infinity" style="-fx-padding: 36 48 48 48;">
+
+                <!-- Page header -->
+                <VBox spacing="6">
+                    <Label text="My Resumes" styleClass="page-title"/>
+                    <Label text="All resumes you've uploaded or built in CV Insight."
+                           styleClass="page-subtitle"/>
+                </VBox>
+
+                <!-- Error state — shown only when load fails -->
+                <HBox fx:id="errorContainer" styleClass="error-card" spacing="14"
+                      alignment="CENTER_LEFT" visible="false" managed="false">
+                    <Label text="!" style="-fx-font-size:15px; -fx-font-weight:bold; -fx-text-fill:#dc2626;"/>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label fx:id="errorLabel"
+                               style="-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#991b1b;"/>
+                        <Label text="Check your setup and press Retry."
+                               style="-fx-font-size:12px; -fx-text-fill:#b91c1c;"/>
+                    </VBox>
+                    <Button text="Retry" onAction="#handleRetry" styleClass="small-action-btn"/>
+                </HBox>
+
+                <!-- Resume list — rows injected by controller -->
+                <VBox fx:id="listContainer" spacing="10"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

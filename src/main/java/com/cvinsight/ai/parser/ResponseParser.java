@@ -40,7 +40,7 @@ public class ResponseParser {
         String json = stripFences(rawText.trim());
 
         try {
-            JsonObject root = JsonParser.parseString(json).getAsJsonObject();
+            JsonObject root = parseWithRepair(json);
 
             int overall = root.get("score").getAsInt();
             if (overall < 0 || overall > 100) {
@@ -63,6 +63,23 @@ public class ResponseParser {
                 "Could not parse Claude's response as valid JSON. Raw response was:\n" + rawText, e
             );
         }
+    }
+
+    /**
+     * Tries to parse JSON, and if it fails due to truncation (missing closing brace),
+     * appends "}" and retries once before giving up.
+     */
+    private JsonObject parseWithRepair(String json) throws Exception {
+        String[] suffixes = { "", "}", "]}", "\"]}", "\"]}}" };
+        Exception last = null;
+        for (String suffix : suffixes) {
+            try {
+                return JsonParser.parseString(json + suffix).getAsJsonObject();
+            } catch (Exception e) {
+                last = e;
+            }
+        }
+        throw last;
     }
 
     /**

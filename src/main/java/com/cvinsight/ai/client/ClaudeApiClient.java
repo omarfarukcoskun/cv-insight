@@ -76,9 +76,10 @@ public class ClaudeApiClient {
      */
     private String buildRequestBody(String prompt) {
         JsonObject body = new JsonObject();
-        body.addProperty("model",  MODEL);
-        body.addProperty("prompt", prompt);
-        body.addProperty("stream", false);
+        body.addProperty("model",       MODEL);
+        body.addProperty("prompt",      prompt);
+        body.addProperty("stream",      false);
+        body.addProperty("num_predict", 1024);
         return body.toString();
     }
 
