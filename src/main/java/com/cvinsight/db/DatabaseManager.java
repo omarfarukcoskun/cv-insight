@@ -107,6 +107,14 @@ public class DatabaseManager {
                     created_at TEXT NOT NULL
                 )
             """);
+
+            // Migration: add columns introduced in Week 6
+            for (String ddl : new String[]{
+                "ALTER TABLE example_cvs ADD COLUMN person_name TEXT",
+                "ALTER TABLE example_cvs ADD COLUMN pdf_filename TEXT"
+            }) {
+                try { stmt.executeUpdate(ddl); } catch (SQLException ignored) {}
+            }
         }
     }
 

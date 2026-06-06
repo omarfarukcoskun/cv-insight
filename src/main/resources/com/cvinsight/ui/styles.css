@@ -635,6 +635,10 @@
     -fx-text-fill: #1e293b;
 }
 
+.del-dlg-cancel:focused {
+    -fx-background-color: #f1f5f9;
+}
+
 /* Delete permanently button */
 .del-dlg-danger {
     -fx-background-color: #dc2626;
@@ -648,6 +652,10 @@
 
 .del-dlg-danger:hover {
     -fx-background-color: #b91c1c;
+}
+
+.del-dlg-danger:focused {
+    -fx-background-color: #dc2626;
 }
 
 /* ── Build Resume preview panel ─────────────────────────────────────────── */

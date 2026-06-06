@@ -13,7 +13,6 @@ import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class CVService {
@@ -58,14 +57,6 @@ public class CVService {
         }
 
         return cv;
-    }
-
-    public Optional<CV> getById(String id) {
-        try {
-            return cvDao.findById(id);
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to fetch CV: " + e.getMessage(), e);
-        }
     }
 
     /**

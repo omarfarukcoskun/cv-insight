@@ -10,7 +10,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 public class CVDao {
 
@@ -58,21 +58,6 @@ public class CVDao {
             ps.setString(2, cvId);
             ps.executeUpdate();
         }
-    }
-
-    public Optional<CV> findById(String id) throws SQLException {
-        String sql = "SELECT * FROM cvs WHERE id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    CV cv = mapRow(rs);
-                    cv.setSections(findSections(id));
-                    return Optional.of(cv);
-                }
-            }
-        }
-        return Optional.empty();
     }
 
     public List<CV> findByUserId(String userId) throws SQLException {

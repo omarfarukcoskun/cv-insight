@@ -23,7 +23,7 @@
                    style="-fx-box-border: transparent; -fx-padding: 0;">
 
             <!-- Left panel: editor sidebar (30% of width, min 220px) -->
-            <ScrollPane fx:id="leftScrollPane" fitToWidth="true"
+            <ScrollPane fitToWidth="true"
                         style="-fx-min-width: 220; -fx-background-color: #f9fafb; -fx-border-color: transparent;">
                 <VBox fx:id="sectionsContainer" spacing="0"/>
             </ScrollPane>

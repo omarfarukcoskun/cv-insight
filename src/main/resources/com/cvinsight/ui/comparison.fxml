@@ -4,43 +4,70 @@
 <?import javafx.geometry.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.cvinsight.ui.controllers.ComparisonController"
-            stylesheets="@styles.css">
+            stylesheets="@styles.css"
+            style="-fx-background-color: #f8fafc;">
 
+    <!-- ── White navbar ──────────────────────────────────────────────────────── -->
     <top>
-        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="16">
-            <Button text="← Back" onAction="#handleBack" styleClass="nav-button"/>
-            <Label text="Successful CV Examples" styleClass="nav-title"/>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" spacing="10">
+            <Button text="← Dashboard" onAction="#handleBack" styleClass="nav-button"/>
+            <Region style="-fx-min-width: 1; -fx-max-width: 1; -fx-min-height: 18;
+                           -fx-background-color: #e5e7eb;"/>
+            <Label text="Successful CV Examples"
+                   style="-fx-font-size: 15px; -fx-font-weight: 500; -fx-text-fill: #0f172a;"/>
         </HBox>
     </top>
 
-    <left>
-        <VBox spacing="14" style="-fx-padding: 20; -fx-min-width: 200; -fx-background-color: white; -fx-border-color: #e5e7eb; -fx-border-width: 0 1 0 0;">
-            <Label text="Filter By" styleClass="section-heading"/>
-
-            <Label text="Category"/>
-            <ComboBox fx:id="categoryFilter" maxWidth="Infinity" promptText="All"/>
-
-            <Label text="Company"/>
-            <ComboBox fx:id="companyFilter" maxWidth="Infinity" promptText="All"/>
-
-            <Button text="Apply Filter" onAction="#handleFilter"
-                    styleClass="primary-button" maxWidth="Infinity"/>
-            <Button text="Clear" onAction="#handleClear"
-                    styleClass="link-button" maxWidth="Infinity"/>
-        </VBox>
-    </left>
-
+    <!-- ── Full-width content ─────────────────────────────────────────────────── -->
     <center>
-        <VBox spacing="12" style="-fx-padding: 24;">
-            <Label text="Examples" styleClass="section-heading"/>
-            <ScrollPane fitToWidth="true"
-                        style="-fx-background-color: transparent; -fx-border-color: transparent;"
-                        VBox.vgrow="ALWAYS">
-                <VBox fx:id="examplesContainer" spacing="12">
-                    <Label fx:id="emptyLabel" text="No examples found."
-                           styleClass="subtitle-label" visible="false" managed="false"/>
+        <VBox style="-fx-background-color: #f8fafc; -fx-padding: 20 24 24 24;" spacing="0">
+
+            <!-- Search row: search bar (grows) + count label -->
+            <HBox alignment="CENTER_LEFT" spacing="14" style="-fx-padding: 0 0 16 0;">
+
+                <StackPane HBox.hgrow="ALWAYS">
+                    <TextField fx:id="searchField"
+                               promptText="Search by company, role or category..."
+                               maxWidth="Infinity"
+                               style="-fx-padding: 9 12 9 36;
+                                      -fx-background-color: white;
+                                      -fx-border-color: #e2e8f0; -fx-border-width: 0.5;
+                                      -fx-border-radius: 8; -fx-background-radius: 8;
+                                      -fx-font-size: 13px; -fx-text-fill: #0f172a;
+                                      -fx-prompt-text-fill: #94a3b8;"/>
+                    <Label text="🔍"
+                           style="-fx-font-size: 14px; -fx-text-fill: #94a3b8; -fx-padding: 0 0 0 12;"
+                           StackPane.alignment="CENTER_LEFT"/>
+                </StackPane>
+
+                <Label fx:id="countLabel"
+                       style="-fx-font-size: 12px; -fx-font-weight: bold;
+                              -fx-text-fill: #94a3b8; -fx-min-width: 80;
+                              -fx-alignment: center-right;"/>
+            </HBox>
+
+            <!-- Card list + no-results overlay in a StackPane -->
+            <StackPane VBox.vgrow="ALWAYS">
+
+                <ScrollPane fitToWidth="true"
+                            style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                    <VBox fx:id="examplesContainer" spacing="10"/>
+                </ScrollPane>
+
+                <!-- Shown when search returns 0 results -->
+                <VBox fx:id="noResultsPane" alignment="CENTER" spacing="10"
+                      visible="false" managed="false"
+                      style="-fx-background-color: #f8fafc;">
+                    <Label text="🔍"
+                           style="-fx-font-size: 28px; -fx-text-fill: #cbd5e1;"/>
+                    <Label fx:id="noResultsTitle" text="No results found"
+                           style="-fx-font-size: 14px; -fx-font-weight: 500; -fx-text-fill: #374151;"/>
+                    <Label text="Try searching by company name, role, or category"
+                           style="-fx-font-size: 13px; -fx-text-fill: #94a3b8;"/>
                 </VBox>
-            </ScrollPane>
+
+            </StackPane>
+
         </VBox>
     </center>
 

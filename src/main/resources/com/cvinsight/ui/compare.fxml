@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cvinsight.ui.controllers.CompareController"
+            stylesheets="@styles.css"
+            style="-fx-background-color: #f8fafc;">
+
+    <top>
+        <HBox styleClass="dash-nav" alignment="CENTER_LEFT" spacing="10">
+            <Button text="← Back" onAction="#handleBack" styleClass="nav-button"/>
+            <Region style="-fx-min-width: 1; -fx-max-width: 1; -fx-min-height: 18;
+                           -fx-background-color: #e5e7eb;"/>
+            <Label fx:id="titleLabel"
+                   style="-fx-font-size: 15px; -fx-font-weight: 500; -fx-text-fill: #0f172a;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <VBox fx:id="contentBox" spacing="12"
+                  style="-fx-padding: 24; -fx-background-color: #f8fafc;"/>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

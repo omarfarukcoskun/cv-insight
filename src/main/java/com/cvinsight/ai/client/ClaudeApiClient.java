@@ -40,7 +40,12 @@ public class ClaudeApiClient {
      * @throws CVAnalysisException on network error, API error, or unexpected response shape
      */
     public String send(String prompt) throws CVAnalysisException {
-        String requestBody = buildRequestBody(prompt);
+        return send(prompt, 1024);
+    }
+
+    /** Same as {@link #send(String)} but with a custom token budget (e.g. 2048 for comparisons). */
+    public String send(String prompt, int numPredict) throws CVAnalysisException {
+        String requestBody = buildRequestBody(prompt, numPredict);
 
         Request request = new Request.Builder()
             .url(API_URL)
@@ -74,12 +79,12 @@ public class ClaudeApiClient {
      *   "stream": false
      * }
      */
-    private String buildRequestBody(String prompt) {
+    private String buildRequestBody(String prompt, int numPredict) {
         JsonObject body = new JsonObject();
         body.addProperty("model",       MODEL);
         body.addProperty("prompt",      prompt);
         body.addProperty("stream",      false);
-        body.addProperty("num_predict", 1024);
+        body.addProperty("num_predict", numPredict);
         return body.toString();
     }
 

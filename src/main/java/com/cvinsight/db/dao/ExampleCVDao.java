@@ -18,20 +18,36 @@ public class ExampleCVDao {
     }
 
     /**
-     * Inserts a successful example CV into the example_cvs table.
-     * company, role, category are metadata shown in the Browse Examples screen.
+     * Inserts an example CV.
+     * Field mapping in the returned CV model:
+     *   userId     = category  (for search)
+     *   ownerName  = "PersonName | Company — Role"
+     *   sourceFile = pdfFilename (for the View button)
      */
-    public void insert(String id, String company, String role,
-                       String category, String rawText, int score) throws SQLException {
-        String sql = "INSERT INTO example_cvs (id, company, role, category, raw_text, score, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void insert(String id, String company, String role, String category,
+                       String personName, String rawText, int score,
+                       String pdfFilename) throws SQLException {
+        String sql = """
+            INSERT INTO example_cvs
+              (id, company, role, category, person_name, raw_text, score, pdf_filename, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, id);
             ps.setString(2, company);
             ps.setString(3, role);
             ps.setString(4, category);
-            ps.setString(5, rawText);
-            ps.setInt(6, score);
-            ps.setString(7, LocalDateTime.now().toString());
+            ps.setString(5, personName);
+            ps.setString(6, rawText);
+            ps.setInt(7, score);
+            ps.setString(8, pdfFilename);
+            ps.setString(9, LocalDateTime.now().toString());
+            ps.executeUpdate();
+        }
+    }
+
+    public void deleteAll() throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("DELETE FROM example_cvs")) {
             ps.executeUpdate();
         }
     }
@@ -41,11 +57,13 @@ public class ExampleCVDao {
     }
 
     public List<CV> findByCategory(String category) throws SQLException {
-        return queryExamples("SELECT * FROM example_cvs WHERE category = ? ORDER BY score DESC", category, null);
+        return queryExamples(
+            "SELECT * FROM example_cvs WHERE category = ? ORDER BY score DESC", category, null);
     }
 
     public List<CV> findByCompany(String company) throws SQLException {
-        return queryExamples("SELECT * FROM example_cvs WHERE company = ? ORDER BY score DESC", null, company);
+        return queryExamples(
+            "SELECT * FROM example_cvs WHERE company = ? ORDER BY score DESC", null, company);
     }
 
     public List<String> findDistinctCompanies() throws SQLException {
@@ -53,9 +71,7 @@ public class ExampleCVDao {
         String sql = "SELECT DISTINCT company FROM example_cvs WHERE company IS NOT NULL ORDER BY company";
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                companies.add(rs.getString("company"));
-            }
+            while (rs.next()) companies.add(rs.getString("company"));
         }
         return companies;
     }
@@ -64,15 +80,25 @@ public class ExampleCVDao {
         List<CV> results = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             if (category != null) ps.setString(1, category);
-            if (company != null)  ps.setString(1, company);
+            if (company  != null) ps.setString(1, company);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    String personName  = rs.getString("person_name");
+                    String comp        = rs.getString("company");
+                    String role2       = rs.getString("role");
+                    String pdfFilename = rs.getString("pdf_filename");
+
+                    // ownerName = "PersonName | Company — Role"  (parsed by UI)
+                    String ownerName = (personName != null && !personName.isBlank())
+                        ? personName + " | " + comp + " — " + role2
+                        : comp + " — " + role2;
+
                     CV cv = new CV(
                         rs.getString("id"),
-                        null,
-                        rs.getString("company") + " — " + rs.getString("role"),
+                        rs.getString("category"),   // userId stores category for search
+                        ownerName,
                         rs.getString("raw_text"),
-                        null,
+                        pdfFilename,                // sourceFile stores pdf filename
                         LocalDateTime.parse(rs.getString("created_at")),
                         CVStatus.ANALYZED
                     );

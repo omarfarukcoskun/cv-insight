@@ -7,7 +7,7 @@ import com.cvinsight.model.SectionType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Pattern;
+
 
 /**
  * Base class for all parsers.
