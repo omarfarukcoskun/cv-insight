@@ -310,6 +310,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Emrecan Bektas** — [@emrecanbektas](https://github.com/emrecanbektas)
 **Baran Salis** — [@Baransalis42](https://github.com/Baransalis42)
+**Omer Faruk Coskun** — [@omarfarukcoskun(https://github.com/omarfarukcoskun)
+
 
 <div align="center">
 
